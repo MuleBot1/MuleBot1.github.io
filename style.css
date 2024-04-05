@@ -13,7 +13,7 @@ ul {
   grid-template-rows: auto;
   gap: 1px 1px;
   grid-template-areas:
-  ". header";
+  ". header"
   "timeslots-container main";
 }
 
