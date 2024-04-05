@@ -16,3 +16,9 @@ ul {
   ". header";
   "timeslots-container main";
 }
+
+.weekdays,
+.daynumbers {
+  display: grid:
+  grid-template-columns: repeat(7, 1fr);
+}
