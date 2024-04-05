@@ -31,3 +31,9 @@ ul {
   background: gray;
   grid-area: header;
 }
+
+.timeslots-container {
+  background: lightgray;
+  grid-area: timeslots-container;
+  justify-content: left;
+}
