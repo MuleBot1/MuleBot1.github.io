@@ -25,9 +25,9 @@ ul {
 
 .weekdays {
   background: lightblue;
-  grid-area: header;
 }
 
 .header {
-  .background: gray;
+  background: gray;
+  grid-area: header;
 }
