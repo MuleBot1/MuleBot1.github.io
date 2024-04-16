@@ -23,6 +23,9 @@ ul {
   grid-template-columns: repeat(7, 1fr);
 }
 
+.daynumbers {
+  min-height: 2em;
+}
 .weekdays {
   background: blue;
 }
