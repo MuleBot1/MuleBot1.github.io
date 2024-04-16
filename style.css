@@ -26,6 +26,7 @@ ul {
 .daynumbers {
   min-height: 2em;
 }
+
 .weekdays {
   background: lightblue;
 }
@@ -59,4 +60,14 @@ ul {
   height: 1px;
   background: lightgray;
   z-index: 1;
+}
+
+
+.slot {
+  position: absolute;
+  background: darkslategray;
+  border-radius: 5px;
+  z-index: 5;
+  color: white;
+  font-size: 12px;
 }
