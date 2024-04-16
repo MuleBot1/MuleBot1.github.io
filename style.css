@@ -62,7 +62,13 @@ ul {
   z-index: 1;
 }
 
-
+.event-containter {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(36, 1fr);
+  grid-area: main;
+  position: relative;
+}
 .slot {
   position: absolute;
   background: darkslategray;
