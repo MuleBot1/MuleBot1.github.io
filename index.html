@@ -1,70 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MINID</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #f4f4f4;
-            text-align: center;
-        }
-        header {
-            background: #333;
-            color: white;
-            padding: 20px;
-        }
-        .container {
-            padding: 40px 20px;
-        }
-        .product-img {
-            max-width: 300px;
-            border-radius: 10px;
-        }
-        .btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 15px 25px;
-            background: #ff6600;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 18px;
-        }
-        .btn:hover {
-            background: #e65c00;
-        }
-        footer {
-            margin-top: 40px;
-            padding: 20px;
-            background: #222;
-            color: white;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Page</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: #f4f4f4;
+        margin: 0;
+    }
+
+    .btn {
+        margin-top: 100px;
+        padding: 15px 25px;
+        font-size: 18px;
+        background: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .form-container {
+        display: none;
+        margin-top: 40px;
+        background: white;
+        padding: 20px;
+        width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    input, textarea {
+        width: 90%;
+        padding: 10px;
+        margin: 10px 0;
+    }
+
+    .captcha {
+        font-weight: bold;
+        margin: 10px 0;
+    }
+</style>
 </head>
+
 <body>
 
-<header>
-    <h1>MINID</h1>
-    <p>from Minsoft</p>
-</header>
+<button class="btn" onclick="showForm()">Contact Us</button>
 
-<div class="container">
-    <img src="04b0689c.jpg" alt="Product Image" class="product-img">
-    
-    <h2>Coming soon to the App Store</h2>
-    <p>✔ Identify minerals based on physical properties and observable characteristics<br>
-       ✔ Full mineral ID table<br>
-       ✔ More features coming soon</p>
+<div class="form-container" id="contactForm">
+    <h2>Contact Form</h2>
+
+    <input type="text" id="name" placeholder="Your Name" required><br>
+    <input type="email" id="email" placeholder="Your Email" required><br>
+    <textarea id="message" placeholder="Your Message" required></textarea><br>
+
+    <div class="captcha" id="captchaText"></div>
+    <input type="text" id="captchaInput" placeholder="Enter CAPTCHA"><br>
+
+    <button onclick="sendEmail()">Send</button>
 </div>
 
-<footer>
-    <p>© 2026 Minsoft</p>
-    <p>Support contact: <a href="mailto:support@minsoft.store">support@minsoft.store</a> </p>
-    
-</footer>
+<script>
+let num1, num2;
+
+function showForm() {
+    document.getElementById("contactForm").style.display = "block";
+    generateCaptcha();
+}
+
+function generateCaptcha() {
+    num1 = Math.floor(Math.random() * 10);
+    num2 = Math.floor(Math.random() * 10);
+    document.getElementById("captchaText").innerText =
+        "What is " + num1 + " + " + num2 + "?";
+}
+
+function sendEmail() {
+    let captchaAnswer = document.getElementById("captchaInput").value;
+
+    if (parseInt(captchaAnswer) !== (num1 + num2)) {
+        alert("CAPTCHA incorrect!");
+        generateCaptcha();
+        return;
+    }
+
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let message = document.getElementById("message").value;
+
+    let mailtoLink = `mailto:you@example.com?subject=Contact from ${name}&body=Name: ${name}%0AEmail: ${email}%0AMessage: ${message}`;
+
+    window.location.href = mailtoLink;
+}
+</script>
 
 </body>
 </html>
