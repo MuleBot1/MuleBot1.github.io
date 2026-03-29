@@ -2,77 +2,43 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact Page</title>
+<title>Contact</title>
 
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        background: #f4f4f4;
-        margin: 0;
-    }
-
-    .btn {
-        margin-top: 100px;
-        padding: 15px 25px;
-        font-size: 18px;
-        background: #007BFF;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .form-container {
-        display: none;
-        margin-top: 40px;
-        background: white;
-        padding: 20px;
-        width: 300px;
-        margin-left: auto;
-        margin-right: auto;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-
-    input, textarea {
-        width: 90%;
-        padding: 10px;
-        margin: 10px 0;
-    }
-
-    .captcha {
-        font-weight: bold;
-        margin: 10px 0;
-    }
+body { font-family: Arial; text-align:center; background:#f4f4f4; }
+.form-box {
+    background:white; padding:20px; margin:50px auto;
+    width:300px; border-radius:10px;
+}
+input, textarea { width:90%; padding:10px; margin:10px 0; }
+button { padding:10px 20px; }
 </style>
 </head>
 
-<body>
+<body onload="generateCaptcha()">
 
-<button class="btn" onclick="showForm()">Contact Us</button>
+<div class="form-box">
+    <h2>Contact Us</h2>
 
-<div class="form-container" id="contactForm">
-    <h2>Contact Form</h2>
+    <form id="form" action="https://formsubmit.co/mulebotone@gmail.com" method="POST" onsubmit="return checkCaptcha()">
+        
+        <input type="text" name="name" placeholder="Your Name" required><br>
+        <input type="email" name="email" placeholder="Your Email" required><br>
+        <textarea name="message" placeholder="Your Message" required></textarea><br>
 
-    <input type="text" id="name" placeholder="Your Name" required><br>
-    <input type="email" id="email" placeholder="Your Email" required><br>
-    <textarea id="message" placeholder="Your Message" required></textarea><br>
+        <div id="captchaText"></div>
+        <input type="text" id="captchaInput" placeholder="Answer CAPTCHA" required><br>
 
-    <div class="captcha" id="captchaText"></div>
-    <input type="text" id="captchaInput" placeholder="Enter CAPTCHA"><br>
+        <!-- optional settings -->
+        <input type="hidden" name="_subject" value="New Contact Form Message">
+        <input type="hidden" name="_captcha" value="false">
 
-    <button onclick="sendEmail()">Send</button>
+        <button type="submit">Send</button>
+    </form>
 </div>
 
 <script>
 let num1, num2;
-
-function showForm() {
-    document.getElementById("contactForm").style.display = "block";
-    generateCaptcha();
-}
 
 function generateCaptcha() {
     num1 = Math.floor(Math.random() * 10);
@@ -81,22 +47,15 @@ function generateCaptcha() {
         "What is " + num1 + " + " + num2 + "?";
 }
 
-function sendEmail() {
-    let captchaAnswer = document.getElementById("captchaInput").value;
+function checkCaptcha() {
+    let answer = document.getElementById("captchaInput").value;
 
-    if (parseInt(captchaAnswer) !== (num1 + num2)) {
-        alert("CAPTCHA incorrect!");
+    if (parseInt(answer) !== (num1 + num2)) {
+        alert("Wrong CAPTCHA!");
         generateCaptcha();
-        return;
+        return false;
     }
-
-    let name = document.getElementById("name").value;
-    let email = document.getElementById("email").value;
-    let message = document.getElementById("message").value;
-
-    let mailtoLink = `mailto:mulebotone@gmail.com?subject=Contact from ${name}&body=Name: ${name}%0AEmail: ${email}%0AMessage: ${message}`;
-
-    window.location.href = mailtoLink;
+    return true;
 }
 </script>
 
